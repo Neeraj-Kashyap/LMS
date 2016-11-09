@@ -24,9 +24,8 @@ if(login.getId()==view.getId()) {
     Toast.makeText(this, "Signing up...", Toast.LENGTH_SHORT).show();
 new getJSON(getApplicationContext()).execute(username.getText().toString(), password.getText().toString());
 
-    Intent intent=new Intent(this,MainPage.class);
-    startActivity(intent);
-finish();
+
+//finish();
 
     //username.setText(password.getText().toString());
    /* if (db.checklogin(username.getText().toString(), password.getText().toString()))

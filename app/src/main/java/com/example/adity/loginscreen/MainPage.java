@@ -19,6 +19,7 @@ import org.w3c.dom.Text;
 public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 TextView name,email;
+    NavigationView nav_view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -26,11 +27,6 @@ TextView name,email;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-       name=(TextView)findViewById(R.id.Name);
-        email=(TextView)findViewById(R.id.Email);
-name.setText(getJSON.Name);
-        email.setText(getJSON.Email);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,6 +48,14 @@ name.setText(getJSON.Name);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main_page);
+
+        name=(TextView)headerView.findViewById(R.id.Name);
+        email=(TextView)headerView.findViewById(R.id.Email);
+        name.setText(getJSON.Name);
+        email.setText(getJSON.Email);
+
+
     }
 
     @Override

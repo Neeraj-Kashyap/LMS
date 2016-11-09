@@ -91,19 +91,19 @@ public static String user_role,Name,Email;
                if(status.equals("Success"))
                 {
                      Toast.makeText(c,"Sign-In Successful!",Toast.LENGTH_LONG).show();
-
-                    Intent intent = new Intent(MainActivity.fa, MainPage.class);
-                    user_role=""+jsonObj.getString("user_role");
-
                     Name=""+jsonObj.getString("Name");
                     Email=""+jsonObj.getString("Email");
-
+                    user_role=""+jsonObj.getString("user_role");
                     Log.d("success",status+" "+Name+" "+Email);
 
+                    Intent intent = new Intent(MainActivity.fa, MainPage.class);
 
-                    /*MainActivity.fa.startActivity(intent);
+
+
+
+                    MainActivity.fa.startActivity(intent);
                     MainActivity.fa.finish();
-                    */
+
 
 
                 }
