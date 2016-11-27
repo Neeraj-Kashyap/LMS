@@ -1,6 +1,7 @@
 package com.example.adity.loginscreen;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements View.OnClickListener{
 
     Button login,cancel,signup;
+    public static ProgressDialog progress;
     EditText username,password;
     DatabaseHandler db;
     getJSON gd;
@@ -21,9 +23,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
 if(login.getId()==view.getId()) {
-    Toast.makeText(this, "Signing up...", Toast.LENGTH_SHORT).show();
-new getJSON(getApplicationContext()).execute(username.getText().toString(), password.getText().toString());
 
+new getJSON(getApplicationContext()).execute(username.getText().toString(), password.getText().toString());
+progress.show();
 
 //finish();
 
@@ -39,16 +41,11 @@ new getJSON(getApplicationContext()).execute(username.getText().toString(), pass
         else
     if(cancel.getId()==view.getId())
     {
+        Intent intent = new Intent(MainActivity.this, MainPage.class);
+        startActivity(intent);
         finish();
-        System.exit(0);
     }
-        else
-        if(signup.getId()==view.getId())
-        {
-            Intent intent = new Intent(MainActivity.this, signup.class);
-            startActivity(intent);
-            finish();
-        }
+
     }
 
 
@@ -59,15 +56,15 @@ new getJSON(getApplicationContext()).execute(username.getText().toString(), pass
         setContentView(R.layout.activity_main);
         login=(Button) findViewById(R.id.login);
         cancel=(Button) findViewById(R.id.cancel);
-        signup=(Button) findViewById(R.id.signup);
         username=(EditText) findViewById(R.id.username);
         password=(EditText) findViewById(R.id.password);
         login.setOnClickListener(this);
         cancel.setOnClickListener(this);
-        signup.setOnClickListener(this);
         db=new DatabaseHandler(getApplicationContext());
         fa=this;
-
+        progress = new ProgressDialog(this);
+        progress.setMessage("Signing In...");
+        progress.setCancelable(false);
 
 
     }

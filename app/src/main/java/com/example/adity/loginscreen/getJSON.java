@@ -42,10 +42,13 @@ import javax.net.ssl.HttpsURLConnection;
 public class getJSON extends AsyncTask<String,Void,String> {
     ProgressDialog loading;
 Context c;
-public static String user_role,Name,Email;
+public static boolean loginflag;
+    public static String user_role,Name,Email;
    public getJSON(Context context)
     {
         c=context;
+        loginflag=false;
+        user_role=Name=Email=null;
 
     }
     @Override
@@ -90,12 +93,13 @@ public static String user_role,Name,Email;
 
                if(status.equals("Success"))
                 {
+                    MainActivity.progress.dismiss();
                      Toast.makeText(c,"Sign-In Successful!",Toast.LENGTH_LONG).show();
                     Name=""+jsonObj.getString("Name");
                     Email=""+jsonObj.getString("Email");
                     user_role=""+jsonObj.getString("user_role");
-                    Log.d("success",status+" "+Name+" "+Email);
 
+                    loginflag=true;
                     Intent intent = new Intent(MainActivity.fa, MainPage.class);
 
 
@@ -110,15 +114,20 @@ public static String user_role,Name,Email;
                else
                     if(status.equals("Unsuccessful"))
                     {
+                        MainActivity.progress.dismiss();
                         Toast.makeText(c,"Please Check Username Password!",Toast.LENGTH_LONG).show();
 
                     }
-               else
+               else {
+
+                        MainActivity.progress.dismiss();
                         Toast.makeText(c, "Couldn't connect to remote database.", Toast.LENGTH_SHORT).show();
-           }catch(JSONException e)
+                    }
+                    }catch(JSONException e)
            {
                e.printStackTrace();
-               Toast.makeText(c, "Error parsing JSON data.", Toast.LENGTH_SHORT).show();
+               MainActivity.progress.dismiss();
+               Toast.makeText(c, "Couldn't connect to remote database.", Toast.LENGTH_SHORT).show();
            }
            }
         else

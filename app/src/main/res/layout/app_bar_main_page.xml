@@ -7,26 +7,30 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.example.adity.loginscreen.MainPage">
+    <ImageView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@drawable/purple"
+        android:scaleType="fitXY"/>
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/appbar"
+        android:background="@android:color/transparent">
 
         <android.support.v7.widget.Toolbar
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/toolbar"
-            contentInsetLeft="72dp"
-            contentInsetStart="72dp"
+
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@android:color/transparent"
             android:elevation="4dp"
             android:minHeight="?attr/actionBarSize"
-            app:contentInsetLeft="72dp"
-            app:contentInsetStart="72dp"
-
+            app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
@@ -35,7 +39,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_weight="1.28">
 
                 <EditText
                     android:id="@+id/search_view"
@@ -69,5 +74,14 @@
     <include layout="@layout/content_main_page" />
 
 
+    <android.support.v7.widget.RecyclerView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recyclerview"
+        android:layout_below="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
 
 </android.support.design.widget.CoordinatorLayout>

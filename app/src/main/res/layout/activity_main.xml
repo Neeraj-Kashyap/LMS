@@ -95,16 +95,7 @@
         android:layout_toLeftOf="@+id/textview"
         android:layout_toStartOf="@+id/textview"
         style="?android:attr/borderlessButtonStyle"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Up"
-        android:id="@+id/signup"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:layout_toRightOf="@+id/textview"
-        android:layout_toEndOf="@+id/textview"
-        style="?android:attr/borderlessButtonStyle"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
