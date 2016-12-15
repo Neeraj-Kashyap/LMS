@@ -1,11 +1,13 @@
 package com.example.adity.loginscreen;
 
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -25,8 +27,16 @@ public class View_Holder extends RecyclerView.ViewHolder {
         cv.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v) {
-                Log.d("RecyclerView", "CLICK!");
-            }
+
+                Intent mainIntent = new Intent(MainPage.c, Book.class);
+                mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mainIntent.putExtra("bookname",title.getText().toString());
+                String arr[]=description.getText().toString().split("\n");
+                Log.d("SizeofDesc",arr.length+"");
+                for(int i=0;i<arr.length;i++)
+                    mainIntent.putExtra(i+"",arr[i].toString());
+                MainPage.c.startActivity(mainIntent);
+                            }
         });
         title = (TextView) itemView.findViewById(R.id.title);
         description = (TextView) itemView.findViewById(R.id.description);

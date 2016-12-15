@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
@@ -60,7 +61,7 @@ import java.lang.reflect.Field;
 public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static boolean toolbarHomeButtonAnimating;
-    public int h=0,flag=0;
+    public int h=0,flag=0,backflag=0;
     TextView name, email,userrole;
     NavigationView nav_view;
     EditText toolbarSearchView;
@@ -75,6 +76,8 @@ public class MainPage extends AppCompatActivity
     float alpha = 1.0f;
     float newAlpha = 1.0f;
     int overallXScroll = 0;
+    public static Context c;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -139,13 +142,17 @@ public class MainPage extends AppCompatActivity
             }
         }
     }
+public void MainPage()
+{
 
+}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+        c=getApplicationContext();
         progress = new ProgressDialog(this);
         progress.setMessage("Wait while loading...");
         progress.setCancelable(false);
@@ -154,6 +161,7 @@ public class MainPage extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         max=(EditText)findViewById(R.id.search_view);
+
         searchContainer = (LinearLayout) findViewById(R.id.search_container);
         toolbarSearchView = (EditText) findViewById(R.id.search_view);
         searchClearButton = (ImageView) findViewById(R.id.search_clear);
@@ -274,10 +282,31 @@ login.setVisibility(View.GONE);
             drawer.closeDrawer(GravityCompat.START);
 
         } else {
-            super.onBackPressed();
+            if(backflag==0)
+            {
+                Toast.makeText(getApplicationContext(), "Press Back Again To Exit", Toast.LENGTH_SHORT).show();
+                backflag=1;
+                new Handler().postDelayed(new Runnable(){
+                    @Override
+                    public void run() {
+                /* Create an Intent that will start the Menu-Activity. */
+                  backflag=0;
+                    }
+                }, 3000);
+            }
+            else {
+                backflag=0;
+                super.onBackPressed();
+
+            }
         }
     }
+public void newActivity()
+{
 
+
+      Log.d("Kissa","Re");
+}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

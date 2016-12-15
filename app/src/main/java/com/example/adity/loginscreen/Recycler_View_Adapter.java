@@ -1,7 +1,9 @@
 package com.example.adity.loginscreen;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,8 +48,10 @@ public void onBindViewHolder(View_Holder holder, int position) {
         holder.description.setText(list.get(position).description);
         Picasso.with(context).load("https://covers.openlibrary.org/b/isbn/"+list.get(position).isbn+"-L.jpg").fit().into(holder.imageView);
 
-        animate(holder);
+                animate(holder);
 MainPage.progress.dismiss();
+
+
         }
 
 @Override

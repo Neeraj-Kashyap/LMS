@@ -3,6 +3,7 @@ package com.example.adity.loginscreen;
 import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -89,7 +90,7 @@ mylist=new ArrayList();
                     {
                         JSONObject jsonObject2 = array.getJSONObject(i);
 
-                        mylist.add(new Data(jsonObject2.getString("Book_Title")+"", jsonObject2.getString("Author").toString() + "\n" + jsonObject2.getString("Category") + "\n" + jsonObject2.getString("ISBN") + "\n" + jsonObject2.getString("No_of_pages") + "",jsonObject2.getString("ISBN")+"",img));
+                        mylist.add(new Data(jsonObject2.getString("Book_Title")+"", jsonObject2.getString("Author").toString() + "\n" + jsonObject2.getString("Category") + "\n" + jsonObject2.getString("ISBN") + "\n" + jsonObject2.getString("No_of_pages") + "\n",jsonObject2.getString("ISBN")+"",img));
                         //Log.d("MYTAG",mylist.size()+"");
 
                     }
@@ -105,8 +106,6 @@ mylist=new ArrayList();
                     itemAnimator.setAddDuration(1000);
                     itemAnimator.setRemoveDuration(1000);
                     recyclerView.setItemAnimator(itemAnimator);
-
-
                 }
                 else
                     if("Unsuccessful".equals(jsonObj.getString("status"))) {

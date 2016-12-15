@@ -17,7 +17,7 @@ app:cardCornerRadius="5dp" app:contentPadding="16dp" app:cardElevation="@dimen/a
         android:layout_height="wrap_content"
 
         android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
+
         android:orientation="vertical">
 
         <ImageView
