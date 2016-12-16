@@ -30,7 +30,6 @@
             android:background="@android:color/transparent"
             android:elevation="4dp"
             android:minHeight="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
@@ -66,6 +65,14 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:src="@drawable/ic_close_white_24dp" />
+                <ImageView
+                    android:id="@+id/camerabut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src ="@drawable/ic_menu_camera"
+                    android:paddingRight="10dp"
+                    android:visibility="gone"
+                    />
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
 

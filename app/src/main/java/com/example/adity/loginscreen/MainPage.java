@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -53,23 +54,26 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Field;
+import java.security.acl.Group;
 
 public class MainPage extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
     private static boolean toolbarHomeButtonAnimating;
-    public int h=0,flag=0,backflag=0;
+    public int h=0,flag=0,backflag=0,menuflag=0;
     TextView name, email,userrole;
     NavigationView nav_view;
     EditText toolbarSearchView;
     LinearLayout searchContainer;
-    ImageView searchClearButton;
+    ImageView camera,searchClearButton;
     EditText max;
     Button login;
-    Menu mymenu;
+    public static MenuItem mymenu;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
     public static ProgressDialog progress;
@@ -162,9 +166,12 @@ public void MainPage()
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         max=(EditText)findViewById(R.id.search_view);
 
+
         searchContainer = (LinearLayout) findViewById(R.id.search_container);
         toolbarSearchView = (EditText) findViewById(R.id.search_view);
         searchClearButton = (ImageView) findViewById(R.id.search_clear);
+        camera=(ImageView)findViewById(R.id.camerabut);
+        camera.setOnClickListener(this);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         searchClearButton.setVisibility(View.GONE);
         max.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -212,12 +219,13 @@ login.setVisibility(View.GONE);
     userrole.setText(getJSON.user_role);
 
             navigationView.getMenu().setGroupVisible(R.id.group1,true);
-
+            menuflag=1;
+                invalidateOptionsMenu();
         }
         RecyclerView rv=(RecyclerView)findViewById(R.id.recyclerview);
 
         cv=(CardView) findViewById(R.id.cardView) ;
-
+toolbar.getMenu().setGroupVisible(R.id.group2,false);
        toolbarSearchView=(EditText)findViewById(R.id.search_view) ;
         searchClearButton = (ImageView) findViewById(R.id.search_clear);
         searchClearButton.setOnClickListener(new View.OnClickListener(){
@@ -236,6 +244,9 @@ login.setVisibility(View.GONE);
                 searchClearButton.setVisibility(View.VISIBLE);
                 toggleActionBarIcon(ActionDrawableState.BURGER, toggle, true);
                 h=1;
+                camera.setVisibility(View.VISIBLE);
+                menuflag=1;
+                invalidateOptionsMenu();
                 toolbar.setNavigationOnClickListener(new View.OnClickListener()
                 {
                     public void onClick(View v) {
@@ -247,7 +258,11 @@ login.setVisibility(View.GONE);
                             h=0;
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(toolbar.getWindowToken(), 0);
+                            if(flag==0) {
+                                menuflag = 0;
+                                invalidateOptionsMenu();
 
+                            }camera.setVisibility(View.GONE);
                             searchClearButton.setVisibility(View.GONE);
 
                     }
@@ -273,8 +288,29 @@ login.setVisibility(View.GONE);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         toggle.syncState();
     }
+public void onClick(View v)
+{
+if(v.getId()==R.id.camerabut)
+{
+    IntentIntegrator ig=new IntentIntegrator(this);
+    ig.initiateScan();
+}
+}
 
 
+    public void onActivityResult(int requestCode,int resultCode,Intent intent)
+    {
+        IntentResult ir=IntentIntegrator.parseActivityResult(requestCode,resultCode,intent);
+        if(ir!=null)
+        {
+
+            new getJSON_search( getApplicationContext(), (RecyclerView) findViewById(R.id.recyclerview), getApplication(), (ImageView) findViewById(R.id.imageView)).execute(ir.getContents());
+
+        }
+        else
+            Toast.makeText(getApplicationContext(), "nope boy", Toast.LENGTH_SHORT).show();
+
+    }
     @Override
     public void onBackPressed() {
       DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -311,7 +347,16 @@ public void newActivity()
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_page, menu);
-        mymenu=menu;
+        Log.d("MenuFlag",menuflag+"");
+        if(menuflag==0) {
+            menu.findItem(R.id.action_signin).setVisible(true);
+
+        }
+            else
+        {
+            menuflag=0;
+            menu.findItem(R.id.action_signin).setVisible(false);
+        }
         return true;
     }
 
@@ -344,10 +389,15 @@ public void newActivity()
         int id = item.getItemId();
 
         if (id == R.id.reserve) {
+            Toast.makeText(getApplicationContext(), "Not Implemented", Toast.LENGTH_SHORT).show();
             // Handle the camera action
         } else if (id == R.id.notification) {
 
+            Toast.makeText(getApplicationContext(), "Not Yet Implemented", Toast.LENGTH_SHORT).show();
+
         } else if (id == R.id.issue) {
+
+            Toast.makeText(getApplicationContext(), "Not Yet Implemented", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.logout) {
             getJSON.Name=getJSON.user_role=getJSON.Email=null;
