@@ -1,17 +1,20 @@
 package com.example.adity.loginscreen;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 public class Book extends AppCompatActivity {
 
     ImageView i1,i2;
-
+        FloatingActionButton res,iss;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +27,27 @@ public class Book extends AppCompatActivity {
         stuff=bund.getString("0");
         TextView tv0=(TextView)findViewById(R.id.Book_author);
         tv0.setText(stuff);
+        iss=(FloatingActionButton)findViewById(R.id.float1);
+        res=(FloatingActionButton)findViewById(R.id.float2);
 
+
+        iss.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+        {
+            Toast.makeText(getApplicationContext(), "ISSUE BUTTON", Toast.LENGTH_SHORT).show();
+
+        }
+        });
+
+        res.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Toast.makeText(getApplicationContext(), "RESERVE BUTTON", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         stuff=bund.getString("1");
         TextView tv1=(TextView)findViewById(R.id.cat1);
         tv1.setText(stuff);

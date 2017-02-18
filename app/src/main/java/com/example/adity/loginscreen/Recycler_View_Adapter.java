@@ -79,8 +79,8 @@ public void remove(Data data) {
         }
 
         public void animate(RecyclerView.ViewHolder viewHolder) {
-                final Animation animAnticipateOvershoot = AnimationUtils.loadAnimation(context, R.anim.accelerate);
-                viewHolder.itemView.setAnimation(animAnticipateOvershoot);
+                //final Animation animAnticipateOvershoot = AnimationUtils.loadAnimation(context, R.anim.accelerate);
+                //viewHolder.itemView.setAnimation(animAnticipateOvershoot);
 
 
         }

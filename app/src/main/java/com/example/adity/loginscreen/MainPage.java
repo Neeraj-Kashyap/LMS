@@ -1,5 +1,6 @@
 package com.example.adity.loginscreen;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Fragment;
@@ -16,9 +17,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.Editable;
@@ -49,22 +52,27 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.support.v4.content.ContextCompat;
+import android.content.pm.PackageManager;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
+import com.example.adity.loginscreen.R;
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Field;
 import java.security.acl.Group;
+import java.util.ArrayList;
+
+import static android.Manifest.permission.CAMERA;
 
 public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
     private static boolean toolbarHomeButtonAnimating;
+    public static final int RequestPermissionCode = 1;
     public int h=0,flag=0,backflag=0,menuflag=0;
     TextView name, email,userrole;
     NavigationView nav_view;
@@ -81,7 +89,7 @@ public class MainPage extends AppCompatActivity
     float newAlpha = 1.0f;
     int overallXScroll = 0;
     public static Context c;
-
+    ArrayList<SectionDataModel> allSampleData;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -264,8 +272,10 @@ toolbar.getMenu().setGroupVisible(R.id.group2,false);
 
                             }camera.setVisibility(View.GONE);
                             searchClearButton.setVisibility(View.GONE);
+                            toolbarSearchView.setText("");
+                            new horizontalRecycler(getApplicationContext(),(RecyclerView)findViewById(R.id.recyclerview));
 
-                    }
+                        }
                         else {
                             if (drawer.isDrawerOpen(GravityCompat.START)) {
                                 drawer.closeDrawer(GravityCompat.START);
@@ -279,6 +289,9 @@ toolbar.getMenu().setGroupVisible(R.id.group2,false);
                 });
             }
         });
+
+        new horizontalRecycler(this,(RecyclerView)findViewById(R.id.recyclerview));
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -292,17 +305,55 @@ public void onClick(View v)
 {
 if(v.getId()==R.id.camerabut)
 {
-    IntentIntegrator ig=new IntentIntegrator(this);
-    ig.initiateScan();
+    int permission = ContextCompat.checkSelfPermission(this,
+            CAMERA);
+    if (permission != PackageManager.PERMISSION_GRANTED)
+    {
+        ActivityCompat.requestPermissions(MainPage.this,new String[]
+                {
+                        CAMERA,
+
+                },1);
+    }
+    else
+    {
+        IntentIntegrator ig=new IntentIntegrator(this);
+        ig.initiateScan();
+    }
+
 }
 }
 
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case RequestPermissionCode: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    IntentIntegrator ig=new IntentIntegrator(this);
+                    ig.initiateScan();
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
 
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
     public void onActivityResult(int requestCode,int resultCode,Intent intent)
     {
         IntentResult ir=IntentIntegrator.parseActivityResult(requestCode,resultCode,intent);
         if(ir!=null)
         {
+            Toast.makeText(getApplicationContext(), ir.getContents(), Toast.LENGTH_SHORT).show();
 
             new getJSON_search( getApplicationContext(), (RecyclerView) findViewById(R.id.recyclerview), getApplication(), (ImageView) findViewById(R.id.imageView)).execute(ir.getContents());
 
