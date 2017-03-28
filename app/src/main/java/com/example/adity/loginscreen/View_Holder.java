@@ -32,7 +32,7 @@ public class View_Holder extends RecyclerView.ViewHolder {
                 mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mainIntent.putExtra("bookname",title.getText().toString());
                 String arr[]=description.getText().toString().split("\n");
-                Log.d("SizeofDesc",arr.length+"");
+
                 for(int i=0;i<arr.length;i++)
                     mainIntent.putExtra(i+"",arr[i].toString());
                 MainPage.c.startActivity(mainIntent);

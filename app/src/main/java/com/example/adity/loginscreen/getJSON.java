@@ -40,10 +40,10 @@ import javax.net.ssl.HttpsURLConnection;
  * Created by adity on 27/09/2016.
  */
 public class getJSON extends AsyncTask<String,Void,String> {
+    public static boolean loginflag;
+    public static String user_role, Name, Email, u_id;
     ProgressDialog loading;
 Context c;
-public static boolean loginflag;
-    public static String user_role,Name,Email;
    public getJSON(Context context)
     {
         c=context;
@@ -98,7 +98,7 @@ public static boolean loginflag;
                     Name=""+jsonObj.getString("Name");
                     Email=""+jsonObj.getString("Email");
                     user_role=""+jsonObj.getString("user_role");
-
+                    u_id = "" + jsonObj.getString("u_id");
                     loginflag=true;
                     Intent intent = new Intent(MainActivity.fa, MainPage.class);
 

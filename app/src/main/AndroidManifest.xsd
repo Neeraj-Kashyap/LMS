@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+    elementFormDefault="qualified">
+    <xs:element name="manifest" type="manifestType" />
+    <xs:complexType name="categoryType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android"
+                    ref="and:name" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="intent-filterType">
+        <xs:sequence>
+            <xs:element name="action" type="actionType" />
+            <xs:element name="category" type="categoryType" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="actionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android"
+                    ref="and:name" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="applicationType">
+        <xs:sequence>
+            <xs:element name="activity" maxOccurs="unbounded" minOccurs="0" type="activityType" />
+            <xs:element name="meta-data" type="meta-dataType">
+                <xs:annotation>
+                    <xs:documentation>ATTENTION: This was auto-generated to add Google Play services
+                        to your project for
+                        App Indexing. See https://g.co/AppIndexing/AndroidStudio for more
+                        information.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android"
+            ref="and:allowBackup" />
+        <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android" ref="and:icon" />
+        <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android" ref="and:label" />
+        <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android"
+            ref="and:supportsRtl" />
+        <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android" ref="and:theme" />
+    </xs:complexType>
+    <xs:complexType name="meta-dataType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android"
+                    ref="and:name" />
+                <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android"
+                    ref="and:value" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="uses-permissionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android"
+                    ref="and:name" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="manifestType">
+        <xs:sequence>
+            <xs:element name="uses-permission" type="uses-permissionType" />
+            <xs:element name="application" type="applicationType" />
+        </xs:sequence>
+        <xs:attribute name="package" type="xs:string" />
+    </xs:complexType>
+    <xs:complexType name="activityType" mixed="true">
+        <xs:sequence>
+            <xs:element name="intent-filter" minOccurs="0" type="intent-filterType" />
+        </xs:sequence>
+        <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android" ref="and:name" />
+        <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android" ref="and:label" />
+        <xs:attribute xmlns:and="http://schemas.android.com/apk/res/android" ref="and:theme" />
+    </xs:complexType>
+</xs:schema>

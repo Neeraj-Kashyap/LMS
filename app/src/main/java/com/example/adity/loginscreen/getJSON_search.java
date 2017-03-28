@@ -2,12 +2,15 @@ package com.example.adity.loginscreen;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -29,6 +32,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
  */
 
 public class getJSON_search extends AsyncTask<String,Void,String> {
+    public static Recycler_View_Adapter adapter;
     Context c;
 ArrayList mylist;
     int i;
@@ -74,6 +78,12 @@ mylist=new ArrayList();
 
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
     protected void onPostExecute(String result)
     {
 
@@ -85,20 +95,22 @@ mylist=new ArrayList();
                 JSONObject jsonObj = new JSONObject(jsonStr);
                 array = jsonObj.getJSONArray("result");
                 if ("Success".equals(jsonObj.getString("status"))) {
-
+                    MainPage.triangle.setVisibility(View.GONE);
+                    MainPage.offline.setVisibility(View.GONE);
+                    MainPage.retry.setVisibility(View.GONE);
                     for (i = 0; i < array.length(); i++)
                     {
                         JSONObject jsonObject2 = array.getJSONObject(i);
 
                         mylist.add(new Data(jsonObject2.getString("Book_Title")+"", jsonObject2.getString("Author").toString() + "\n" + jsonObject2.getString("Category") + "\n" + jsonObject2.getString("ISBN") + "\n" + jsonObject2.getString("No_of_pages") + "\n",jsonObject2.getString("ISBN")+"",img));
-                        //Log.d("MYTAG",mylist.size()+"");
+
 
                     }
 
 
                     Log.d("SIZE OF DATA", Integer.toString(mylist.size()));
-                    RecyclerView recyclerView = (RecyclerView) ob1;
-                    Recycler_View_Adapter adapter = new Recycler_View_Adapter(mylist, ob2);
+                    RecyclerView recyclerView = ob1;
+                    adapter = new Recycler_View_Adapter(mylist, ob2);
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(c));
                     recyclerView.setItemAnimator(new SlideInUpAnimator());
@@ -106,6 +118,7 @@ mylist=new ArrayList();
                     itemAnimator.setAddDuration(1000);
                     itemAnimator.setRemoveDuration(1000);
                     recyclerView.setItemAnimator(itemAnimator);
+
                 }
                 else
                     if("Unsuccessful".equals(jsonObj.getString("status"))) {
@@ -114,6 +127,12 @@ mylist=new ArrayList();
                     }
                     } catch (JSONException e) {
                 e.printStackTrace();
+                if (!isNetworkAvailable()) {
+
+                    MainPage.triangle.setVisibility(View.VISIBLE);
+                    MainPage.offline.setVisibility(View.VISIBLE);
+                    MainPage.retry.setVisibility(View.VISIBLE);
+                }
                 MainPage.progress.dismiss();
                 Toast.makeText(c, "No Results Found!", Toast.LENGTH_SHORT).show();
             }

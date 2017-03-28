@@ -12,4 +12,36 @@
     tools:context="com.example.adity.loginscreen.MainPage"
     tools:showIn="@layout/app_bar_main_page">
 
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/triangle"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/triangle"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/offline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/triangle"
+        android:layout_centerInParent="true"
+        android:text="You are Offline!"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/offline"
+        android:layout_centerInParent="true"
+        android:text="Tap To Retry"
+        android:visibility="gone" />
 </RelativeLayout>

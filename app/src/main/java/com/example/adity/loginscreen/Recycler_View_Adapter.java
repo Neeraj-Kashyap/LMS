@@ -21,11 +21,11 @@ import java.util.List;
 
 public class Recycler_View_Adapter extends RecyclerView.Adapter<View_Holder> {
 
-        List<Data> list = Collections.emptyList();
+    public static List<Data> list = Collections.emptyList();
         Context context;
 
 public Recycler_View_Adapter(List<Data> list, Context context) {
-        this.list = list;
+    Recycler_View_Adapter.list = list;
         this.context = context;
 
         }
@@ -46,7 +46,7 @@ public void onBindViewHolder(View_Holder holder, int position) {
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
        holder.title.setText(list.get(position).title);
         holder.description.setText(list.get(position).description);
-        Picasso.with(context).load("https://covers.openlibrary.org/b/isbn/"+list.get(position).isbn+"-L.jpg").fit().into(holder.imageView);
+    Picasso.with(context).load("https://covers.openlibrary.org/b/isbn/" + list.get(position).isbn + "-L.jpg?default=false").error(R.drawable.noimage).fit().placeholder(R.drawable.progress_animation).into(holder.imageView);
 
                 animate(holder);
 MainPage.progress.dismiss();
@@ -78,6 +78,16 @@ public void remove(Data data) {
         notifyItemRemoved(position);
         }
 
+    public void clear() {
+        int size = list.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                list.remove(0);
+            }
+
+            this.notifyItemRangeRemoved(0, size);
+        }
+    }
         public void animate(RecyclerView.ViewHolder viewHolder) {
                 //final Animation animAnticipateOvershoot = AnimationUtils.loadAnimation(context, R.anim.accelerate);
                 //viewHolder.itemView.setAnimation(animAnticipateOvershoot);

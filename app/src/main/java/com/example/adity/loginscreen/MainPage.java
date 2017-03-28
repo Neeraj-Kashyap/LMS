@@ -66,13 +66,21 @@ import org.w3c.dom.Text;
 import java.lang.reflect.Field;
 import java.security.acl.Group;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import static android.Manifest.permission.CAMERA;
 
 public class MainPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
-    private static boolean toolbarHomeButtonAnimating;
     public static final int RequestPermissionCode = 1;
+    public static ImageView triangle;
+    public static TextView offline;
+    public static Button retry;
+    public static MenuItem mymenu;
+    public static ProgressDialog progress;
+    public static ProgressBar progresbar;
+    public static Context c;
+    private static boolean toolbarHomeButtonAnimating;
     public int h=0,flag=0,backflag=0,menuflag=0;
     TextView name, email,userrole;
     NavigationView nav_view;
@@ -81,14 +89,11 @@ public class MainPage extends AppCompatActivity
     ImageView camera,searchClearButton;
     EditText max;
     Button login;
-    public static MenuItem mymenu;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    public static ProgressDialog progress;
     float alpha = 1.0f;
     float newAlpha = 1.0f;
     int overallXScroll = 0;
-    public static Context c;
     ArrayList<SectionDataModel> allSampleData;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -97,9 +102,6 @@ public class MainPage extends AppCompatActivity
     private GoogleApiClient client;
     private CardView cv;
 
-    private enum ActionDrawableState{
-        BURGER, ARROW
-    }
     private static void toggleActionBarIcon(ActionDrawableState state, final ActionBarDrawerToggle toggle, boolean animate) {
         if(animate) {
             float start = state == ActionDrawableState.BURGER ? 0f : 1.0f;
@@ -154,10 +156,12 @@ public class MainPage extends AppCompatActivity
             }
         }
     }
+
 public void MainPage()
 {
 
 }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -173,8 +177,21 @@ public void MainPage()
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         max=(EditText)findViewById(R.id.search_view);
+        max.setHintTextColor(getResources().getColor(R.color.black));
+        offline = (TextView) findViewById(R.id.offline);
+        triangle = (ImageView) findViewById(R.id.triangle);
+        progresbar = (ProgressBar) findViewById(R.id.progressbar);
+        retry = (Button) findViewById(R.id.retry);
+        retry.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                MainPage.triangle.setVisibility(View.GONE);
+                MainPage.offline.setVisibility(View.GONE);
+                MainPage.retry.setVisibility(View.GONE);
+                progresbar.setVisibility(View.VISIBLE);
+                new getJSON_recomend(getApplicationContext(), (RecyclerView) findViewById(R.id.recyclerview), getApplication(), (ImageView) findViewById(R.id.itemImage)).execute("1");
 
-
+            }
+        });
         searchContainer = (LinearLayout) findViewById(R.id.search_container);
         toolbarSearchView = (EditText) findViewById(R.id.search_view);
         searchClearButton = (ImageView) findViewById(R.id.search_clear);
@@ -273,8 +290,11 @@ toolbar.getMenu().setGroupVisible(R.id.group2,false);
                             }camera.setVisibility(View.GONE);
                             searchClearButton.setVisibility(View.GONE);
                             toolbarSearchView.setText("");
-                            new horizontalRecycler(getApplicationContext(),(RecyclerView)findViewById(R.id.recyclerview));
-
+                            if (Recycler_View_Adapter.list.size() != 0) {
+                                getJSON_search.adapter.clear();
+                                progresbar.setVisibility(View.VISIBLE);
+                                new getJSON_recomend(getApplicationContext(), (RecyclerView) findViewById(R.id.recyclerview), getApplication(), (ImageView) findViewById(R.id.itemImage)).execute("1");
+                            }
                         }
                         else {
                             if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -289,19 +309,23 @@ toolbar.getMenu().setGroupVisible(R.id.group2,false);
                 });
             }
         });
+        progresbar.setVisibility(View.VISIBLE);
+        new getJSON_recomend(getApplicationContext(), (RecyclerView) findViewById(R.id.recyclerview), getApplication(), (ImageView) findViewById(R.id.itemImage)).execute("1");
 
-        new horizontalRecycler(this,(RecyclerView)findViewById(R.id.recyclerview));
+        //new horizontalRecycler(this,(RecyclerView)findViewById(R.id.recyclerview));
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         toggle.syncState();
     }
-public void onClick(View v)
+
+    public void onClick(View v)
 {
 if(v.getId()==R.id.camerabut)
 {
@@ -348,6 +372,7 @@ if(v.getId()==R.id.camerabut)
             // permissions this app might request
         }
     }
+
     public void onActivityResult(int requestCode,int resultCode,Intent intent)
     {
         IntentResult ir=IntentIntegrator.parseActivityResult(requestCode,resultCode,intent);
@@ -362,6 +387,7 @@ if(v.getId()==R.id.camerabut)
             Toast.makeText(getApplicationContext(), "nope boy", Toast.LENGTH_SHORT).show();
 
     }
+
     @Override
     public void onBackPressed() {
       DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -388,12 +414,14 @@ if(v.getId()==R.id.camerabut)
             }
         }
     }
-public void newActivity()
+
+    public void newActivity()
 {
 
 
       Log.d("Kissa","Re");
 }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -496,5 +524,9 @@ public void newActivity()
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    private enum ActionDrawableState {
+        BURGER, ARROW
     }
 }

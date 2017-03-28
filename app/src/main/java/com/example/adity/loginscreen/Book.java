@@ -57,7 +57,7 @@ public class Book extends AppCompatActivity {
         TextView tv2=(TextView)findViewById(R.id.cat3);
         tv2.setText(stuff);
         i2=(ImageView)findViewById(R.id.bookcover);
-        Picasso.with(getApplicationContext()).load("https://covers.openlibrary.org/b/isbn/"+stuff+"-L.jpg").fit().into(i2);
+        Picasso.with(getApplicationContext()).load("https://covers.openlibrary.org/b/isbn/" + stuff + "-L.jpg?default=false").error(R.drawable.noimage).fit().placeholder(R.drawable.progress_animation).into(i2);
 
 
 
