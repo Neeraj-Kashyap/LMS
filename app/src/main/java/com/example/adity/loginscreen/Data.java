@@ -11,12 +11,13 @@ public class Data {
     public String description;
     public String isbn;
     public ImageView image;
-
-    Data(String title, String description, String isbn , ImageView imageId) {
+public String b_id;
+    Data(String title, String description, String isbn ,String b_id, ImageView imageId) {
         this.title = title;
         this.description = description;
         this.isbn=isbn;
         this.image = imageId;
+        this.b_id=b_id;
     }
 }
 

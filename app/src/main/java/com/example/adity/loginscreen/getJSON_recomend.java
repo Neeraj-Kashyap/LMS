@@ -98,7 +98,7 @@ public class getJSON_recomend extends AsyncTask<String, Void, String> {
 
                             JSONObject jsonObject2 = array.getJSONObject(i);
 
-                            mylist.add(new SingleItemModel(jsonObject2.getString("Book_Title") + "", jsonObject2.getString("Author").toString() + "\n" + jsonObject2.getString("Category") + "\n" + jsonObject2.getString("ISBN") + "\n" + jsonObject2.getString("No_of_pages") + "\n", jsonObject2.getString("ISBN") + "", img));
+                            mylist.add(new SingleItemModel(jsonObject2.getString("Book_Title") + "", jsonObject2.getString("Author").toString() + "\n" + jsonObject2.getString("Category") + "\n" + jsonObject2.getString("ISBN") + "\n" + jsonObject2.getString("No_of_pages") + "\n", jsonObject2.getString("ISBN") + "",jsonObject2.getString("b_id"), img));
                             //Log.d("MYTAG",mylist.size()+"");
 
                         }

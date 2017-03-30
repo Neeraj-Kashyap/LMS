@@ -42,7 +42,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Text
 
 if(login.getId()==view.getId()) {
     if (checkText()) {
-        new getJSON(getApplicationContext()).execute(username.getText().toString(), password.getText().toString());
+        new getJSON(getApplicationContext(),false).execute(username.getText().toString(), password.getText().toString());
         progress.show();
     } else
         Toast.makeText(getApplicationContext(), "Please Enter Valid Username or Password", Toast.LENGTH_SHORT).show();

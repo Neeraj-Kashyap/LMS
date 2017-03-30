@@ -53,6 +53,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
         holder.tvTitle.setText(singleItem.getName());
         holder.desc.setText(singleItem.getDescription());
+        holder.b_id.setText(singleItem.getB_id());
         Picasso.with(mContext).load("https://covers.openlibrary.org/b/isbn/" + singleItem.isbn + "-L.jpg?default=false").error(R.drawable.noimage).fit().placeholder(R.drawable.progress_animation).into(holder.itemImage);
 
 
@@ -71,7 +72,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
-        protected TextView tvTitle, desc;
+        protected TextView tvTitle, desc,b_id;
 
         protected ImageView itemImage;
 
@@ -81,7 +82,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
             this.tvTitle = (TextView) view.findViewById(R.id.tvTitle);
             this.itemImage = (ImageView) view.findViewById(R.id.itemImage);
-
+            this.b_id = (TextView) view.findViewById(R.id.b_id3);
             this.desc = (TextView) view.findViewById(R.id.desc);
 
             view.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +96,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
                     for (int i = 0; i < arr.length; i++)
                         mainIntent.putExtra(i + "", arr[i].toString());
+                    mainIntent.putExtra("b_id",b_id.getText());
                     MainPage.c.startActivity(mainIntent);
 
 

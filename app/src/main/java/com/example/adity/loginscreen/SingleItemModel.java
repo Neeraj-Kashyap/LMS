@@ -13,16 +13,18 @@ public class SingleItemModel {
     public String url;
     public String description;
     public String isbn;
+    public String b_id;
     ImageView i;
 
     public SingleItemModel() {
     }
 
-    SingleItemModel(String name, String description, String isbn, ImageView i) {
+    SingleItemModel(String name, String description, String isbn,String b_id, ImageView i) {
         this.name = name;
         this.description = description;
         this.isbn = isbn;
         this.i = i;
+        this.b_id=b_id;
     }
 
 
@@ -44,6 +46,10 @@ public class SingleItemModel {
 
     public String getIsbn() {
         return isbn;
+    }
+
+    public String getB_id() {
+        return b_id;
     }
 
     public String getDescription() {

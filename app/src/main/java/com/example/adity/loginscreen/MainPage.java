@@ -192,6 +192,7 @@ public void MainPage()
 
             }
         });
+        new getJSON_date().execute();//current todays date saved here
         searchContainer = (LinearLayout) findViewById(R.id.search_container);
         toolbarSearchView = (EditText) findViewById(R.id.search_view);
         searchClearButton = (ImageView) findViewById(R.id.search_clear);
@@ -409,7 +410,10 @@ if(v.getId()==R.id.camerabut)
             }
             else {
                 backflag=0;
-                super.onBackPressed();
+                int pid = android.os.Process.myPid();
+                android.os.Process.killProcess(pid);
+                //super.onBackPressed();
+
 
             }
         }
@@ -476,11 +480,15 @@ if(v.getId()==R.id.camerabut)
 
         } else if (id == R.id.issue) {
 
-            Toast.makeText(getApplicationContext(), "Not Yet Implemented", Toast.LENGTH_SHORT).show();
+            Intent mainIntent = new Intent(this,issueList.class);
+            this.startActivity(mainIntent);
+
 
         } else if (id == R.id.logout) {
             getJSON.Name=getJSON.user_role=getJSON.Email=null;
         flag=0;
+            getJSON.loginflag=false;
+            new SessionManager(this).logoutUser();
             Intent mainIntent = new Intent(this,MainPage.class);
             this.startActivity(mainIntent);
             this.finish();

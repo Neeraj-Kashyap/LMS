@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+
+            android:id="@+id/viewA"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:background="#66A5AD"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/back1reserve"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                />
+            <TextView
+                android:id="@+id/Book_namereserve"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="90dp"
+                android:gravity="center_vertical|center"
+                android:text="Book_Name"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:typeface="serif"
+
+                />
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/buffer"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="#C4DFE6" />
+        <ScrollView
+            android:id="@+id/viewB"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="#C4DFE6"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+            <EditText
+                android:id="@+id/start_date"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date"
+                android:layout_gravity="center"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="30dp"/>
+
+            <EditText
+                android:layout_below="@id/start_date"
+                android:id="@+id/end_date"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date"
+                android:paddingTop="30dp"
+                android:layout_centerHorizontal="true" />
+
+                <Button
+                    android:layout_marginTop="30dp"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/end_date"
+                    android:text="Submit"
+                    android:id="@+id/submitreserve"
+
+                    android:background="@color/zxing_viewfinder_laser"
+                    android:layout_centerHorizontal="true" />
+                <Button
+                    android:layout_marginTop="30dp"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/submitreserve"
+                    android:text="Cancel"
+
+                    android:id="@+id/cancelreserve"
+                    android:background="@color/zxing_viewfinder_laser"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+
+
+
+    <ImageView
+        android:id="@+id/bookcoverreserve"
+        android:layout_width="120dp"
+        android:layout_height="180dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/egg"
+        app:layout_anchor="@id/viewA"
+        app:layout_anchorGravity="bottom|center"/>
+</android.support.design.widget.CoordinatorLayout>

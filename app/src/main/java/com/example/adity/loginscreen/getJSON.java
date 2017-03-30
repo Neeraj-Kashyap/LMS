@@ -43,20 +43,22 @@ public class getJSON extends AsyncTask<String,Void,String> {
     public static boolean loginflag;
     public static String user_role, Name, Email, u_id;
     ProgressDialog loading;
+    String userName,passWord;
+    Boolean flag;
 Context c;
-   public getJSON(Context context)
+   public getJSON(Context context,Boolean b)
     {
         c=context;
         loginflag=false;
         user_role=Name=Email=null;
-
+        flag=b;
     }
     @Override
     protected String doInBackground(String... arg0) {
 
         // URL to call
-        String userName = arg0[0];
-        String passWord=arg0[1];
+         userName = arg0[0];
+         passWord=arg0[1];
 
         String link;
         String data;
@@ -84,6 +86,7 @@ Context c;
 
     protected void onPostExecute(String result) {
             String jsonStr=result;
+       // Toast.makeText(c, result, Toast.LENGTH_SHORT).show();
        if(jsonStr!=null)
        {
            try{
@@ -93,39 +96,42 @@ Context c;
 
                if(status.equals("Success"))
                 {
-                    MainActivity.progress.dismiss();
+
+                    if(flag==false)
+                        MainActivity.progress.dismiss();
+
                      Toast.makeText(c,"Sign-In Successful!",Toast.LENGTH_LONG).show();
                     Name=""+jsonObj.getString("Name");
                     Email=""+jsonObj.getString("Email");
                     user_role=""+jsonObj.getString("user_role");
                     u_id = "" + jsonObj.getString("u_id");
                     loginflag=true;
-                    Intent intent = new Intent(MainActivity.fa, MainPage.class);
+                    if(flag==false) {
 
-
-
-
-                    MainActivity.fa.startActivity(intent);
-                    MainActivity.fa.finish();
-
+                        Intent intent = new Intent(MainActivity.fa, MainPage.class);
+                        MainActivity.fa.startActivity(intent);
+                        MainActivity.fa.finish();
+                    }
+                    new SessionManager(c).createLoginSession(userName,passWord);
 
 
                 }
                else
                     if(status.equals("Unsuccessful"))
-                    {
+                    {if(flag==false)
                         MainActivity.progress.dismiss();
                         Toast.makeText(c,"Please Check Username Password!",Toast.LENGTH_LONG).show();
 
                     }
                else {
-
+                        if(flag==false)
                         MainActivity.progress.dismiss();
                         Toast.makeText(c, "Couldn't connect to remote database.", Toast.LENGTH_SHORT).show();
                     }
                     }catch(JSONException e)
            {
                e.printStackTrace();
+               if(flag==false)
                MainActivity.progress.dismiss();
                Toast.makeText(c, "Couldn't connect to remote database.", Toast.LENGTH_SHORT).show();
            }

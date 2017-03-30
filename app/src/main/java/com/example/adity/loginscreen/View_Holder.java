@@ -18,7 +18,7 @@ public class View_Holder extends RecyclerView.ViewHolder {
 
     CardView cv;
     TextView title;
-    TextView description;
+    TextView description,b_id;
     ImageView imageView;
 
     View_Holder(View itemView) {
@@ -35,11 +35,13 @@ public class View_Holder extends RecyclerView.ViewHolder {
 
                 for(int i=0;i<arr.length;i++)
                     mainIntent.putExtra(i+"",arr[i].toString());
+                mainIntent.putExtra("b_id",b_id.getText());
                 MainPage.c.startActivity(mainIntent);
                             }
         });
         title = (TextView) itemView.findViewById(R.id.title);
         description = (TextView) itemView.findViewById(R.id.description);
+        b_id=(TextView)itemView.findViewById(R.id.b_id);
         imageView = (ImageView) itemView.findViewById(R.id.imageView);
     }
 }

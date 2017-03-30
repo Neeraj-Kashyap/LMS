@@ -18,15 +18,17 @@ public class SectionDataModel {
 
     }
 
-    public SectionDataModel(String headerTitle, ArrayList<SingleItemModel> allItemsInSection) {
+    public SectionDataModel(String headerTitle,String b_id, ArrayList<SingleItemModel> allItemsInSection) {
         this.headerTitle = headerTitle;
         this.allItemsInSection = allItemsInSection;
+
     }
 
 
     public String getHeaderTitle() {
         return headerTitle;
     }
+
 
     public void setHeaderTitle(String headerTitle) {
         this.headerTitle = headerTitle;

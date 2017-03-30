@@ -46,6 +46,7 @@ public void onBindViewHolder(View_Holder holder, int position) {
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
        holder.title.setText(list.get(position).title);
         holder.description.setText(list.get(position).description);
+    holder.b_id.setText(list.get(position).b_id);
     Picasso.with(context).load("https://covers.openlibrary.org/b/isbn/" + list.get(position).isbn + "-L.jpg?default=false").error(R.drawable.noimage).fit().placeholder(R.drawable.progress_animation).into(holder.imageView);
 
                 animate(holder);

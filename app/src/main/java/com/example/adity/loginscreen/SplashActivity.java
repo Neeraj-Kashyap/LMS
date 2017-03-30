@@ -1,5 +1,6 @@
 package com.example.adity.loginscreen;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,14 +10,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 public class SplashActivity extends AppCompatActivity {
-
+    public static SharedPreferences pref;
 
     private final int SPLASH_DISPLAY_LENGTH = 2000;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+      if(!new SessionManager(getApplicationContext()).isLoggedIn())
+          Toast.makeText(getApplicationContext(), "nope boy", Toast.LENGTH_SHORT).show();
+        else
+          new getJSON(getApplicationContext(),true).execute(new SessionManager(getApplicationContext()).getKeyUsername(), new SessionManager(getApplicationContext()).getKeyPassword());
+          //Toast.makeText(getApplicationContext(),new SessionManager(getApplicationContext()).getKeyUsername()+" "+new SessionManager(getApplicationContext()).getKeyPassword(), Toast.LENGTH_SHORT).show();
+
+
        setContentView(R.layout.activity_splash);
         android.app.ActionBar bar=getActionBar();
         
@@ -31,5 +40,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
+
+
     }
 

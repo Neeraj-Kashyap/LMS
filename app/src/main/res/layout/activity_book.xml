@@ -59,7 +59,8 @@
             android:orientation="vertical">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:visibility="visible">
 
     <TextView
 
@@ -189,6 +190,13 @@
         android:typeface="serif"
 
         />
+    <TextView
+        android:id="@+id/b_id1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        />
+
 
 </RelativeLayout>
 
