@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
       if(!new SessionManager(getApplicationContext()).isLoggedIn())
-          Toast.makeText(getApplicationContext(), "nope boy", Toast.LENGTH_SHORT).show();
+          Toast.makeText(getApplicationContext(), "Welcome To ISSC!", Toast.LENGTH_SHORT).show();
         else
           new getJSON(getApplicationContext(),true).execute(new SessionManager(getApplicationContext()).getKeyUsername(), new SessionManager(getApplicationContext()).getKeyPassword());
           //Toast.makeText(getApplicationContext(),new SessionManager(getApplicationContext()).getKeyUsername()+" "+new SessionManager(getApplicationContext()).getKeyPassword(), Toast.LENGTH_SHORT).show();

@@ -472,11 +472,8 @@ if(v.getId()==R.id.camerabut)
         int id = item.getItemId();
 
         if (id == R.id.reserve) {
-            Toast.makeText(getApplicationContext(), "Not Implemented", Toast.LENGTH_SHORT).show();
-            // Handle the camera action
-        } else if (id == R.id.notification) {
-
-            Toast.makeText(getApplicationContext(), "Not Yet Implemented", Toast.LENGTH_SHORT).show();
+            Intent mainIntent = new Intent(this,reserveList.class);
+            this.startActivity(mainIntent);
 
         } else if (id == R.id.issue) {
 

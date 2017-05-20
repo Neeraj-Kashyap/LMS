@@ -49,6 +49,9 @@
         <activity
             android:name=".Reserve"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".reserveList"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

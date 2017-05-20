@@ -103,6 +103,9 @@ public class getJSON_recomend extends AsyncTask<String, Void, String> {
 
                         }
                         SectionDataModel dm = new SectionDataModel();
+                        if(category.getString(j).equals("Recommended"))
+                            dm.setHeaderTitle("Popular");
+                            else
                         dm.setHeaderTitle(category.getString(j));
                         dm.setAllItemsInSection(mylist);
 
